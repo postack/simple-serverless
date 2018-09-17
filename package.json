@@ -1,0 +1,50 @@
+{
+  "name": "cars-serverless",
+  "version": "0.0.1",
+  "description": "`npm install`",
+  "main": "index.js",
+  "scripts": {
+    "flow": "flow",
+    "test": "rm -r lib/ && babel src/ -d lib/ && cp -r src/mocks/ lib/mocks/ && CARS_TABLE=\"CARS-table-dev\" nyc mocha lib/**/*.test.js lib/*.test.js --require babel-register --exit",
+    "build": "babel src/ -d lib/",
+    "start": "SLS_DEBUG=* && babel src/ -d lib/ && sls offline start --stage stg",
+    "deploy-dev": "npm run-script build && sls --aws-profile travelooc deploy --stage dev",
+    "deploy-stg": "npm run-script build && sls --aws-profile travelooc deploy --stage stg",
+    "deploy-prd": "npm run-script build && sls --aws-profile travelooc deploy --stage prd",
+    "prepublish": "npm run build"
+  },
+  "keywords": [],
+  "author": "Travelooc",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.212.1",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "express": "^4.16.3",
+    "mocha": "^5.0.4",
+    "node-jose": "^0.11.0",
+    "serverless-http": "^1.5.3",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-register": "^6.26.0",
+    "dynalite": "^1.2.0",
+    "flow-bin": "^0.70.0",
+    "nyc": "^11.7.3",
+    "serverless-dynamodb-local": "^0.2.28",
+    "serverless-offline": "^3.18.0",
+    "serverless-sam": "0.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/fullexpress/users-serverless.git"
+  },
+  "homepage": "https://bitbucket.org/fullexpress/users-serverless#readme"
+}

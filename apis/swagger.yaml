@@ -1,0 +1,120 @@
+---
+swagger: "2.0"
+info:
+  version: "2018-06-05T17:19:14Z"
+  title: "cars"
+host: "lalalal.execute-api.us-east-1.amazonaws.com"
+basePath: "/dev"
+schemes:
+  - https
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+###########################################################################
+#                                  Security                              
+###########################################################################
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    
+paths:
+  /cars:
+    post:
+      security:
+        - Bearer: []
+      description: "some description"
+      parameters:
+      - name: car
+        in: body
+        description: car to add
+        required: true
+        schema:
+          properties:
+            name:
+              type: string
+              description: Name of the car (spanish)
+            brand: 
+              type: string
+              description: Name of the brand (Spanish)
+      responses:
+        '200':
+          description: Successful answer
+        '400':
+          description: Errors within 400 range
+          schema:
+            type: object
+            description: Error of what happened
+            properties:
+              error:
+                type: string     
+        '500':
+          description: Error  
+    get:
+      responses:
+        '200':
+          description: Successful answer
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/car'
+        '400':
+          description: Errors within 400 range
+          schema:
+            type: object
+            description: Error of what happened
+            properties:
+              error:
+                type: string     
+        '500':
+          description: Error  
+  /cars/{code}:
+    get:
+      parameters:
+      - name: code
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: Successful answer
+          schema:
+            $ref: '#/definitions/car'
+        '400':
+          description: Errors within 400 range
+          schema:
+            type: object
+            description: Error of what happened
+            properties:
+              error:
+                type: string     
+        '500':
+          description: Error 
+
+definitions:
+  car:
+    type: object
+    description: car complete data
+    properties:
+      code:
+        type: string
+        description: code of the car. is the name without spaces and lowercase
+      name:
+        type: string
+      brandCode:
+        type: string
+        description: code of the brand. is the brand without spaces and lowercase
+      brand:
+        type: string
+      description1:
+        type: array
+        items:
+          type: string
+      description2:
+        type: array
+        items:
+          type: string
