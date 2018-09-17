@@ -1,4 +1,4 @@
-### Travelooc cars serverless module
+### Cars serverless module
 This is a boilerplate project with a popular domain: Cars.
 You will provide a way to add cars to a dynamo database. Every car has a brand.
 
